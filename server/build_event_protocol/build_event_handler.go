@@ -162,7 +162,7 @@ func (e *EventChannel) HandleEvent(ctx context.Context, event *pepb.PublishBuild
 	// command line options and workspace info has come through by then, so we have
 	// something to show the user. Flushing the proto file here allows that when the
 	// client fetches status for the incomplete build.
-	if seqNo == 15 {
+	if seqNo == 2 {
 		return e.pw.Flush(ctx)
 	}
 	return nil
