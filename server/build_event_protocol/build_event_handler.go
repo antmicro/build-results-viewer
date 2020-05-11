@@ -41,6 +41,19 @@ func isFinalEvent(obe *pepb.OrderedBuildEvent) bool {
 	return false
 }
 
+func isFakeFlushEvent(be build_event_stream.BuildEvent) bool {
+	switch p := be.Payload.(type) {
+	case *build_event_stream.BuildEvent_BuildMetadata:
+		if p.BuildMetadata.Metadata["flush"] == "yes" {
+			log.Printf("Received BuildMetadata with flush = yes, forcing flush!")
+			return true
+		} else {
+			return false
+		}
+	}
+	return false
+}
+
 func readBazelEvent(obe *pepb.OrderedBuildEvent, out *build_event_stream.BuildEvent) error {
 	switch buildEvent := obe.Event.Event.(type) {
 	case *bepb.BuildEvent_BazelEvent:
@@ -135,6 +148,12 @@ func (e *EventChannel) HandleEvent(ctx context.Context, event *pepb.PublishBuild
 		log.Printf("error reading bazel event: %s", err)
 		return err
 	}
+
+	//log.Printf(proto.MarshalTextString(bazelBuildEvent))
+	if isFakeFlushEvent(bazelBuildEvent) {
+		return e.pw.Flush(ctx)
+	}
+	fmt.Printf("%+v\n", bazelBuildEvent)
 
 	// If this is the first event, keep track of the project ID and save any notification keywords.
 	if seqNo == 1 {
