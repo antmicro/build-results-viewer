@@ -51,7 +51,7 @@ export default class TargetTestResultCardComponent extends React.Component {
     }
 
     var request = new XMLHttpRequest();
-    request.open('GET', "/file/download?filename=test.log&bytestream_url=" + encodeURIComponent(testLogUrl), true);
+    request.open('GET', "/results/file/download?filename=test.log&bytestream_url=" + encodeURIComponent(testLogUrl), true);
 
     let card = this;
     request.onload = function () {
@@ -75,7 +75,7 @@ export default class TargetTestResultCardComponent extends React.Component {
     if (testLogUrl.startsWith("file://")) {
       window.prompt("Copy artifact path to clipboard: Cmd+C, Enter", testLogUrl);
     } else if (testLogUrl.startsWith("bytestream://")) {
-       let downloadUri = "/file/download?" + "filename=test.log&bytestream_url=" + testLogUrl;
+       let downloadUri = "/results/file/download?" + "filename=test.log&bytestream_url=" + testLogUrl;
        window.open(downloadUri);
     }
   }
@@ -105,7 +105,7 @@ export default class TargetTestResultCardComponent extends React.Component {
 
   render() {
     return <div className={`card artifacts ${this.props.testResult.buildEvent.testResult.status == build_event_stream.TestStatus.PASSED ? "card-success" : "card-failure"}`}>
-      <img className="icon" src="/image/log-circle.svg" />
+      <img className="icon" src="/results/image/log-circle.svg" />
       <div className="content">
         <div className="title">Test log</div>
         <div className="test-subtitle">{this.getStatusTitle(this.props.testResult.buildEvent.testResult.status)} in {format.durationMillis(this.props.testResult.buildEvent.testResult.testAttemptDurationMillis)} on Shard {this.props.testResult.buildEvent.id.testResult.shard} (Run {this.props.testResult.buildEvent.id.testResult.run}, Attempt {this.props.testResult.buildEvent.id.testResult.attempt})</div>

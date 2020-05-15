@@ -39,11 +39,11 @@ export default class TargetComponent extends React.Component {
   getStatusIcon(status: build_event_stream.TestStatus) {
     switch (status) {
       case build_event_stream.TestStatus.PASSED:
-        return "/image/check-circle.svg";
+        return "/results/image/check-circle.svg";
       case build_event_stream.TestStatus.FLAKY:
-        return "/image/help-circle.svg";
+        return "/results/image/help-circle.svg";
       default:
-        return "/image/x-circle.svg";
+        return "/results/image/x-circle.svg";
     }
   }
 
@@ -108,19 +108,19 @@ export default class TargetComponent extends React.Component {
                 {this.getStatusTitle(this.props?.testSummaryEvent?.buildEvent?.testSummary?.overallStatus)}
               </div>}
               {!this.props?.testSummaryEvent && <div className="detail">
-                <img className="icon" src={this.props?.completedEvent?.buildEvent?.completed?.success ? "/image/check-circle.svg": "/image/x-circle.svg"} />
+                <img className="icon" src={this.props?.completedEvent?.buildEvent?.completed?.success ? "/results/image/check-circle.svg": "/results/image/x-circle.svg"} />
                 {this.props?.completedEvent?.buildEvent?.completed?.success ? "Succeeded": "Failed"}
               </div>}
               {this.props?.testSummaryEvent && <div className="detail">
-                <img className="icon" src="/image/hash.svg" />
+                <img className="icon" src="/results/image/hash.svg" />
                 {this.props?.testSummaryEvent?.buildEvent?.testSummary?.totalRunCount} total runs
               </div>}
               <div className="detail">
-                <img className="icon" src="/image/target-regular.svg" />
+                <img className="icon" src="/results/image/target-regular.svg" />
                 {this.props?.configuredEvent?.buildEvent?.configured.targetKind}
               </div>
               {this.props?.configuredEvent?.buildEvent?.configured.testSize > 0 && <div className="detail">
-                <img className="icon" src="/image/box-regular.svg" />
+                <img className="icon" src="/results/image/box-regular.svg" />
                 {this.getTestSize(this.props?.configuredEvent?.buildEvent?.configured.testSize)}
               </div>}
             </div>

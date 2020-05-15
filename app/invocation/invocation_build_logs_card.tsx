@@ -12,7 +12,7 @@ export default class BuildLogsCardComponent extends React.Component {
 
   render() {
     return <div className={`card dark ${this.props.expanded ? "expanded" : ""}`}>
-      <img className="icon" src="/image/log-circle-light.svg" />
+      <img className="icon" src="/results/image/log-circle-light.svg" />
       <div className="content">
         <div className="title">Build logs </div>
         <div className="details">

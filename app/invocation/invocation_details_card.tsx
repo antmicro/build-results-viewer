@@ -25,7 +25,7 @@ export default class ArtifactsCardComponent extends React.Component {
 
   render() {
     return <div className="card">
-      <img className="icon" src="/image/info.svg" />
+      <img className="icon" src="/results/image/info.svg" />
       <div className="content">
         <div className="title">Invocation details</div>
         <div className="details">

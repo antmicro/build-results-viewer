@@ -47,10 +47,10 @@ export default class MenuComponent extends React.Component {
         <div hidden className="menu">
           <div className="container">
             <div>
-              <a href="/"><div className="title"><img src="/image/logo_white.svg" /></div></a>
+              <a href="/results/"><div className="title"><img src="/results/image/logo_white.svg" /></div></a>
             </div>
-            {(this.props.showHamburger && (!capabilities.auth || !this.props.user)) && <img onClick={this.handleMenuClicked.bind(this)} hidden className="icon" src="/image/menu.svg" />}
-            {(this.props.showHamburger && capabilities.auth && this.props.user) && <img onClick={this.handleMenuClicked.bind(this)} className={`profile-photo ${this.props.user?.displayUser?.profileImageUrl ? "" : "default-photo"}`} src={this.props.user?.displayUser?.profileImageUrl || "/image/user-regular.svg"} />}
+            {(this.props.showHamburger && (!capabilities.auth || !this.props.user)) && <img onClick={this.handleMenuClicked.bind(this)} hidden className="icon" src="/results/image/menu.svg" />}
+            {(this.props.showHamburger && capabilities.auth && this.props.user) && <img onClick={this.handleMenuClicked.bind(this)} className={`profile-photo ${this.props.user?.displayUser?.profileImageUrl ? "" : "default-photo"}`} src={this.props.user?.displayUser?.profileImageUrl || "/results/image/user-regular.svg"} />}
             {this.state.menuExpanded &&
               <div className="side-menu">
                 <ul>

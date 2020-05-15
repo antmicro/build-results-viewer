@@ -85,7 +85,7 @@ class Router {
   }
 }
 export class Path {
-  static invocationPath = "/invocation/";
+  static invocationPath = "/results/invocation/";
   static userHistoryPath = "/history/user/";
   static hostHistoryPath = "/history/host/";
 }

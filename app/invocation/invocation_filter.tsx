@@ -18,7 +18,7 @@ export default class InvocationFilterComponent extends React.Component {
 
   render() {
     return <div className="filter">
-      <img src="/image/filter.svg" />
+      <img src="/results/image/filter.svg" />
       <input value={this.props.search.get(this.props.hash == "#artifacts" ? "artifactFilter" : "targetFilter") || ""}
         className="filter-input"
         placeholder="Filter..."

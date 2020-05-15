@@ -11,7 +11,7 @@ export default class ErrorCardComponent extends React.Component {
 
   render() {
     return <div className="card">
-      <img className="icon" src="/image/alert-circle.svg" />
+      <img className="icon" src="/results/image/alert-circle.svg" />
       <div className="content">
         <div className="title">Error</div>
         <div className="details">

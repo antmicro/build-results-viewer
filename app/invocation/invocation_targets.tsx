@@ -19,7 +19,7 @@ export default class TargetsComponent extends React.Component {
         <TargetsCardComponent
           buildEvents={this.props.model.failed}
           className="card-failure"
-          iconPath="/image/x-circle.svg"
+          iconPath="/results/image/x-circle.svg"
           presentVerb="failing"
           pastVerb="failed"
           model={this.props.model}
@@ -31,7 +31,7 @@ export default class TargetsComponent extends React.Component {
         <TargetsCardComponent
           buildEvents={this.props.model.broken}
           className="card-failure"
-          iconPath="/image/x-circle.svg"
+          iconPath="/results/image/x-circle.svg"
           presentVerb="broken"
           pastVerb="broken"
           model={this.props.model}
@@ -43,7 +43,7 @@ export default class TargetsComponent extends React.Component {
         <TargetsCardComponent
           buildEvents={this.props.model.flaky}
           className="card-failure"
-          iconPath="/image/x-circle.svg"
+          iconPath="/results/image/x-circle.svg"
           presentVerb="flaky"
           pastVerb="flaky"
           model={this.props.model}
@@ -55,7 +55,7 @@ export default class TargetsComponent extends React.Component {
         <TargetsCardComponent
           buildEvents={this.props.model.succeeded}
           className="card-success"
-          iconPath="/image/check-circle.svg"
+          iconPath="/results/image/check-circle.svg"
           presentVerb="passing"
           pastVerb="passed"
           model={this.props.model}

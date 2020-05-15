@@ -15,14 +15,14 @@ export default class ArtifactsCardComponent extends React.Component {
     if (outputUri.startsWith("file://")) {
       window.prompt("Copy artifact path to clipboard: Cmd+C, Enter", outputUri);
     } else if (outputUri.startsWith("bytestream://")) {
-       let downloadUri = "/file/download?" + "filename=" + outputFilename + "&bytestream_url=" + outputUri;
+       let downloadUri = "/results/file/download?" + "filename=" + outputFilename + "&bytestream_url=" + outputUri;
        window.open(downloadUri);
     }
   }
 
   render() {
     return <div className="card artifacts">
-      <img className="icon" src="/image/arrow-down-circle.svg" />
+      <img className="icon" src="/results/image/arrow-down-circle.svg" />
       <div className="content">
         <div className="title">Artifacts</div>
           <div className="details">

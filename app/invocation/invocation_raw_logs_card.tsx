@@ -31,7 +31,7 @@ export default class RawLogsCardComponent extends React.Component {
 
   render() {
     return <div className="card">
-      <img className="icon" src="/image/log-circle.svg" />
+      <img className="icon" src="/results/image/log-circle.svg" />
       <div className="content">
         <div className="title">Raw logs</div>
         <div className="details code">

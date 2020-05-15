@@ -114,11 +114,11 @@ func StartAndRunServices(env environment.Env) {
 	bbspb.RegisterBuildBuddyServiceServer(grpcServer, buildBuddyServer)
 
 	// Register all of our HTTP handlers on the default mux.
-	http.Handle("/", httpfilters.WrapExternalHandler(staticFileServer))
-	http.Handle("/app/", httpfilters.WrapExternalHandler(http.StripPrefix("/app", afs)))
-	http.Handle("/rpc/BuildBuddyService/", httpfilters.WrapAuthenticatedExternalHandler(env,
-		http.StripPrefix("/rpc/BuildBuddyService/", protoHandler)))
-	http.Handle("/file/download", httpfilters.WrapExternalHandler(buildBuddyServer))
+	http.Handle("/results/", httpfilters.WrapExternalHandler(http.StripPrefix("/results", staticFileServer)))
+	http.Handle("/results/app/", httpfilters.WrapExternalHandler(http.StripPrefix("/results/app", afs)))
+	http.Handle("/results/rpc/BuildBuddyService/", httpfilters.WrapAuthenticatedExternalHandler(env,
+		http.StripPrefix("/results/rpc/BuildBuddyService/", protoHandler)))
+	http.Handle("/results/file/download", httpfilters.WrapExternalHandler(buildBuddyServer))
 	http.Handle("/healthz", env.GetHealthChecker())
 
 	if auth := env.GetAuthenticator(); auth != nil {

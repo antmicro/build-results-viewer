@@ -65,7 +65,7 @@ export default class ArtifactsCardComponent extends React.Component {
 
     var request = new XMLHttpRequest();
     request.responseType = "arraybuffer";
-    request.open('GET', "/file/download?filename=trace.gz&bytestream_url=" + encodeURIComponent(profileUrl), true);
+    request.open('GET', "/results/file/download?filename=trace.gz&bytestream_url=" + encodeURIComponent(profileUrl), true);
 
     // TODO(siggisim): Do something more robust here
     var isSafari = /constructor/i.test(window.HTMLElement as any) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!(window as any).safari || (typeof (window as any).safari !== 'undefined' && (window as any).safari.pushNotification));
@@ -130,7 +130,7 @@ export default class ArtifactsCardComponent extends React.Component {
 
   render() {
     return <div className="card artifacts">
-      <img className="icon" src="/image/clock-regular.svg" />
+      <img className="icon" src="/results/image/clock-regular.svg" />
       <div className="content">
         <div className="title">Timing</div>
         <div className="sort-control">Order by <u onClick={this.handleStartTimeClicked.bind(this)} className={`clickable ${this.state.sortFunction == this.sortTimeAsc && 'selected'}`}>start time</u> | <u onClick={this.handleDurationClicked.bind(this)} className={`clickable ${this.state.sortFunction == this.sortDurationDesc && 'selected'}`}>duration</u></div>

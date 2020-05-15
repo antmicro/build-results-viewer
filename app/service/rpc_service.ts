@@ -12,7 +12,7 @@ class RpcService {
 
   rpc(method: any, requestData: any, callback: any) {
     var request = new XMLHttpRequest();
-    request.open('POST', `/rpc/BuildBuddyService/${method.name}`, true);
+    request.open('POST', `/results/rpc/BuildBuddyService/${method.name}`, true);
 
     request.setRequestHeader('Content-Type', 'application/proto');
     request.responseType = 'arraybuffer';

@@ -224,12 +224,12 @@ export default class InvocationModel {
 
   getStatusIcon() {
     if (!this.started) {
-      return <img className="icon" src="/image/help-circle.svg" />
+      return <img className="icon" src="/results/image/help-circle.svg" />
     }
     if (!this.finished) {
-      return <img className="icon" src="/image/play-circle.svg" />
+      return <img className="icon" src="/results/image/play-circle.svg" />
     }
-    return this.finished.exitCode.code == 0 ? <img className="icon" src="/image/check-circle.svg" /> : <img className="icon" src="/image/x-circle.svg" />;
+    return this.finished.exitCode.code == 0 ? <img className="icon" src="/results/image/check-circle.svg" /> : <img className="icon" src="/results/image/x-circle.svg" />;
   }
 
   getCPU() {
