@@ -10,11 +10,13 @@ export default class DenseInvocationOverviewComponent extends React.Component {
   props: Props;
 
   handleUserClicked() {
-    router.navigateToUserHistory(this.props.model.getUser(false));
+    //router.navigateToUserHistory(this.props.model.getUser(false));
+    void(0);
   }
 
   handleHostClicked() {
-    router.navigateToHostHistory(this.props.model.getHost());
+    //router.navigateToHostHistory(this.props.model.getHost());
+    void(0);
   }
 
   render() {
@@ -29,7 +31,7 @@ export default class DenseInvocationOverviewComponent extends React.Component {
           {this.props.model.getStartDate()} at {this.props.model.getStartTime()} for <span title={this.props.model.getDurationSeconds()}>{this.props.model.getTiming()}</span>
         </div>
         <div>
-          Evaluation started by <b onClick={this.handleUserClicked.bind(this)} className="clickable">{this.props.model.getUser(false)}</b> on <b onClick={this.handleHostClicked.bind(this)} className="clickable">{this.props.model.getHost()}</b>
+          Evaluation started by <b>{this.props.model.getUser(false)}</b> on <b>{this.props.model.getHost()}</b>
         </div>
       </div>
       <div className="dense-invocation-overview-grid">
