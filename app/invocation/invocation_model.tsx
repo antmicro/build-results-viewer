@@ -161,7 +161,7 @@ export default class InvocationModel {
   }
 
   getTool() {
-    return `bazel v${this.started?.buildToolVersion} ` + this.started?.command || "build"
+    return this.started?.command + " " + `v${this.started?.buildToolVersion}` || "build"
   }
 
   getPattern() {
