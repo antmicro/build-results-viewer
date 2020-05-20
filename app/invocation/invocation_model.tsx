@@ -132,6 +132,14 @@ export default class InvocationModel {
     return this.workspaceStatusMap.get('BUILD_HOST') || "Unknown host";
   }
 
+  getJobId() {
+    return this.workspaceStatusMap.get('JOB_ID');
+  }
+
+  getJobUrl() {
+    return this.workspaceStatusMap.get('JOB_URL');
+  }
+
   getGithubUser() {
     return this.clientEnvMap.get('GITHUB_ACTOR');
   }

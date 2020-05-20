@@ -19,10 +19,27 @@ export default class DenseInvocationOverviewComponent extends React.Component {
     void(0);
   }
 
+  htmlDecode(input: string) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+  }
+
+  getJobString() {
+    const jobId = this.props.model.getJobId();
+    const jobUrl = this.props.model.getJobUrl();
+    console.log(jobId);
+    console.log(jobUrl);
+    if(jobId && jobUrl) {
+        return <a href={jobUrl} style={{textDecoration: "underline"}}>(job #{jobId})</a>
+    } else {
+        return ""
+    }
+  }
+
   render() {
     return <div className="container">
       <div className="dense-invocation">
-        <div className="dense-invocation-title">Invocation</div>
+        <div className="dense-invocation-title">Invocation {this.getJobString()}</div>
         <div className="dense-invocation-invocation-id">{this.props.invocationId} ({this.props.model.getStartDate()}, {this.props.model.getStartTime()})</div>
       </div>
       <div className={`dense-invocation-status-bar ${this.props.model.getStatus() == "Succeeded" && `succeeded`} ${this.props.model.getStatus() == "Failed" && `failed`}`}>
