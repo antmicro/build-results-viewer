@@ -26,6 +26,8 @@ export default class ArtifactsCardComponent extends React.Component {
     } else if (outputUri.startsWith("bytestream://")) {
        let downloadUri = "/results/file/download?" + "filename=" + outputFilename + "&bytestream_url=" + outputUri;
        window.open(downloadUri);
+    } else if (outputUri.startsWith("https") || outputUri.startsWith("http")) {
+       window.open(outputUri);
     }
   }
 
