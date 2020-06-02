@@ -2,6 +2,7 @@ package real_environment
 
 import (
 	"log"
+	"time"
 
 	"github.com/buildbuddy-io/buildbuddy/server/backends/blobstore"
 	"github.com/buildbuddy-io/buildbuddy/server/backends/disk_cache"
@@ -130,9 +131,16 @@ func GetConfiguredEnvironmentOrDie(configurator *config.Configurator, checker *h
 	if err != nil {
 		log.Fatalf("Error configuring blobstore: %s", err)
 	}
-	dbHandle, err := db.GetConfiguredDatabase(configurator)
-	if err != nil {
-		log.Fatalf("Error configuring database: %s", err)
+
+	dbHandle, dbErr := db.GetConfiguredDatabase(configurator)
+	for dbErr != nil {
+		time.Sleep(5*time.Second)
+		log.Printf("%s, will try again in 5 seconds.", dbErr)
+		dbHandle, dbErr = db.GetConfiguredDatabase(configurator)
+	}
+
+	if dbErr == nil {
+		log.Printf("Configured DB!")
 	}
 
 	realEnv := &RealEnv{
