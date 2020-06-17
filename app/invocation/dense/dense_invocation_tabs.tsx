@@ -1,11 +1,23 @@
 import React from 'react';
+import InvocationModel from '../invocation_model';
 
 interface Props {
   hash: string,
+  model: InvocationModel,
 }
 
 export default class DenseInvocationTabsComponent extends React.Component {
   props: Props;
+
+  isPrivateInstance() {
+    const jobId = this.props.model.getJobId();
+    const jobUrl = this.props.model.getJobUrl();
+    if(jobId && jobUrl) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   render() {
     return <div className="tabs">
@@ -24,7 +36,7 @@ export default class DenseInvocationTabsComponent extends React.Component {
       <a href="#timing" hidden className={`tab ${this.props.hash == '#timing' && 'selected'}`}>
         TIMING
       </a>
-      <a href="#raw" className={`tab ${this.props.hash == '#raw' && 'selected'}`}>
+      <a href="#raw" style={this.isPrivateInstance() ? {} : { display: 'none' }} className={`tab ${this.props.hash == '#raw' && 'selected'}`}>
         RAW LOG
       </a>
     </div>

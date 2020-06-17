@@ -137,7 +137,7 @@ export default class InvocationComponent extends React.Component {
         </div>
         <div className="container">
           {this.props.denseMode ?
-            <DenseInvocationTabsComponent hash={this.props.hash} /> :
+            <DenseInvocationTabsComponent hash={this.props.hash} model={this.state.model} /> :
             <InvocationTabsComponent hash={this.props.hash} />}
 
           {((!this.props.hash && this.props.denseMode) || this.props.hash == "#targets" || this.props.hash == "#artifacts") &&
