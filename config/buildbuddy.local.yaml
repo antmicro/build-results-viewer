@@ -3,7 +3,7 @@ app:
 database:
   data_source: "sqlite3:///tmp/buildbuddy.db"
 storage:
-  ttl_seconds: 86400  # One day in seconds.
+  ttl_seconds: 31536000 # One year in seconds.
   chunk_file_size_bytes: 3000000  # 3 MB
   disk:
     root_directory: /tmp/buildbuddy
