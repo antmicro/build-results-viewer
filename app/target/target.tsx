@@ -25,7 +25,7 @@ export default class TargetComponent extends React.Component {
   props: Props;
 
   componentWillMount() {
-    document.title = `Target ${this.props.invocationId} | Buildbuddy`;
+    document.title = `Target ${this.props.invocationId}`;
   }
 
   handleOrganizationClicked() {
