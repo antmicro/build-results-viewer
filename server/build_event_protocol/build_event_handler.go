@@ -2,6 +2,7 @@ package build_event_handler
 
 import (
 	"context"
+	"strings"
 	"fmt"
 	"io"
 	"log"
@@ -52,6 +53,21 @@ func isFakeFlushEvent(be build_event_stream.BuildEvent) bool {
 		}
 	}
 	return false
+}
+
+func readPatternFromStarted(be build_event_stream.BuildEvent) string {
+	switch be.Payload.(type) {
+	case *build_event_stream.BuildEvent_Started:
+		for _, child := range be.Children {
+			switch c := child.Id.(type) {
+			case *build_event_stream.BuildEventId_Pattern:
+				if c.Pattern.Pattern != nil {
+					return strings.Join(c.Pattern.Pattern, ", ")
+				}
+			}
+		}
+	}
+	return ""
 }
 
 func readBazelEvent(obe *pepb.OrderedBuildEvent, out *build_event_stream.BuildEvent) error {
@@ -158,9 +174,12 @@ func (e *EventChannel) HandleEvent(ctx context.Context, event *pepb.PublishBuild
 	// If this is the first event, keep track of the project ID and save any notification keywords.
 	if seqNo == 1 {
 		log.Printf("First event! project_id: %s, notification_keywords: %s", event.ProjectId, event.NotificationKeywords)
+		log.Printf("Pattern: %s", readPatternFromStarted(bazelBuildEvent))
+		patternFromEvent := readPatternFromStarted(bazelBuildEvent)
 		ti := &tables.Invocation{
 			InvocationID:     iid,
 			InvocationStatus: int64(inpb.Invocation_PARTIAL_INVOCATION_STATUS),
+			Pattern: patternFromEvent,
 		}
 		if err := e.env.GetInvocationDB().InsertOrUpdateInvocation(ctx, ti); err != nil {
 			return err
