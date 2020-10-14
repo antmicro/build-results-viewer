@@ -42,10 +42,10 @@ export default class TargetsComponent extends React.Component {
       {!!this.props.model.flaky.length && this.props.mode != "passing" &&
         <TargetsCardComponent
           buildEvents={this.props.model.flaky}
-          className="card-failure"
-          iconPath="/results/image/x-circle.svg"
-          presentVerb="flaky"
-          pastVerb="flaky"
+          className="card-non-critical"
+          iconPath="/results/image/arrow-down-circle.svg"
+          presentVerb="failing (non-critical)"
+          pastVerb="failed (non-critical)"
           model={this.props.model}
           filter={this.props.filter}
           pageSize={this.props.pageSize}

@@ -52,7 +52,7 @@ export default class TargetComponent extends React.Component {
       case build_event_stream.TestStatus.PASSED:
         return "Passed";
       case build_event_stream.TestStatus.FLAKY:
-        return "Flaky";
+        return "Failed (non-critical)";
       case build_event_stream.TestStatus.TIMEOUT:
         return "Timeout";
       case build_event_stream.TestStatus.FAILED:
@@ -66,7 +66,7 @@ export default class TargetComponent extends React.Component {
       case build_event_stream.TestStatus.TOOL_HALTED_BEFORE_TESTING:
         return "Halted before testing";
       default:
-        return "Unknown";
+        return "Skipped";
     }
   }
 

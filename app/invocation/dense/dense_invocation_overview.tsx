@@ -87,7 +87,7 @@ export default class DenseInvocationOverviewComponent extends React.Component {
         </div>
         <div className="dense-invocation-overview-grid-chunk">
           <div className="dense-invocation-overview-grid-title">
-            Flaky
+            Failed (non-critical)
           </div>
           <div className="dense-invocation-overview-grid-value">
             {this.props.model.flaky.length}
