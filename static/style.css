@@ -338,6 +338,14 @@ button {
   border-left: 6px solid #f44336;
 }
 
+.card.card-non-critical {
+  border-left: 6px solid #ffc107;
+}
+
+.card.card-skipped {
+  border-left: 6px solid #03a9f4;
+}
+
 .card.dark {
   /* background-color: #263238; */
   /* background-color: #222; */

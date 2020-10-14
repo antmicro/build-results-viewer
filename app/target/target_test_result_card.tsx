@@ -85,7 +85,7 @@ export default class TargetTestResultCardComponent extends React.Component {
       case build_event_stream.TestStatus.PASSED:
         return "Passed";
       case build_event_stream.TestStatus.FLAKY:
-        return "Flaky";
+        return "Failed (non-critical)";
       case build_event_stream.TestStatus.TIMEOUT:
         return "Timeout";
       case build_event_stream.TestStatus.FAILED:
@@ -99,12 +99,25 @@ export default class TargetTestResultCardComponent extends React.Component {
       case build_event_stream.TestStatus.TOOL_HALTED_BEFORE_TESTING:
         return "Halted before testing";
       default:
-        return "Unknown";
+        return "Skipped";
+    }
+  }
+
+  getStatusClass(status: build_event_stream.TestStatus) {
+    switch (status) {
+      case build_event_stream.TestStatus.PASSED:
+        return "card-success";
+      case build_event_stream.TestStatus.FLAKY:
+        return "card-non-critical";
+      case build_event_stream.TestStatus.NO_STATUS:
+        return "card-skipped";
+      default:
+      return "card-failure";
     }
   }
 
   render() {
-    return <div className={`card artifacts ${this.props.testResult.buildEvent.testResult.status == build_event_stream.TestStatus.PASSED ? "card-success" : "card-failure"}`}>
+    return <div className={`card artifacts ${this.getStatusClass(this.props.testResult.buildEvent.testResult.status)}`}>
       <img className="icon" src="/results/image/log-circle.svg" />
       <div className="content">
         <div className="title">Test log</div>
