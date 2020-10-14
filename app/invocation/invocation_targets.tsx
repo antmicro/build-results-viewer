@@ -51,6 +51,18 @@ export default class TargetsComponent extends React.Component {
           pageSize={this.props.pageSize}
         />}
 
+      {!!this.props.model.skipped.length && this.props.mode != "passing" &&
+        <TargetsCardComponent
+          buildEvents={this.props.model.skipped}
+          className="card-skipped"
+          iconPath="/results/image/check-circle-regular.svg"
+          presentVerb="skipped"
+          pastVerb="skipped"
+          model={this.props.model}
+          filter={this.props.filter}
+          pageSize={this.props.pageSize}
+        />}
+
       {!!this.props.model.succeeded.length && this.props.mode != "failing" &&
         <TargetsCardComponent
           buildEvents={this.props.model.succeeded}

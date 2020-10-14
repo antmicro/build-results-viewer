@@ -15,6 +15,7 @@ export default class InvocationModel {
   broken: build_event_stream.BuildEvent[] = [];
   failed: build_event_stream.BuildEvent[] = [];
   flaky: build_event_stream.BuildEvent[] = [];
+  skipped: build_event_stream.BuildEvent[] = [];
   files: build_event_stream.NamedSetOfFiles[] = [];
   structuredCommandLine: command_line.CommandLine[] = [];
   finished: build_event_stream.BuildFinished;
@@ -88,6 +89,8 @@ export default class InvocationModel {
         model.flaky.push(buildEvent as build_event_stream.BuildEvent);
       } else if (testResult && testResult.overallStatus == build_event_stream.TestStatus.FAILED_TO_BUILD) {
         model.broken.push(buildEvent as build_event_stream.BuildEvent);
+      } else if (testResult && testResult.overallStatus == build_event_stream.TestStatus.NO_STATUS) {
+        model.skipped.push(buildEvent as build_event_stream.BuildEvent);
       } else if (!buildEvent.completed.success || (testResult && testResult.overallStatus != build_event_stream.TestStatus.PASSED)) {
         model.failed.push(buildEvent as build_event_stream.BuildEvent);
       } else {
