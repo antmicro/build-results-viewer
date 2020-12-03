@@ -39,7 +39,7 @@ var (
 )
 
 func StartAndRunServices(env environment.Env) {
-	staticFileServer, err := static.NewStaticFileServer(*staticDirectory, []string{"/invocation/", "/history/", "/docs/"})
+	staticFileServer, err := static.NewStaticFileServer(*staticDirectory, []string{"/invocations/", "/invocation/"})
 	if err != nil {
 		log.Fatalf("Error initializing static file server: %s", err)
 	}

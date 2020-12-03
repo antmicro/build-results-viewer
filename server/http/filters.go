@@ -39,6 +39,16 @@ func RedirectHTTPS(next http.Handler) http.Handler {
 	})
 }
 
+func RedirectLegacyInvocation(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "/results/invocation/") {
+			http.Redirect(w, r, strings.Replace(r.URL.Path, "invocation", "invocations", 1), 301)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 // gzip, courtesy of https://gist.github.com/CJEnright/bc2d8b8dc0c1389a9feeddb110f822d7
 var gzPool = sync.Pool{
 	New: func() interface{} {
@@ -97,6 +107,7 @@ func WrapExternalHandler(next http.Handler) http.Handler {
 	wrapFns := []wrapFn{
 		Gzip,
 		RedirectHTTPS,
+		RedirectLegacyInvocation,
 	}
 	handler := next
 	for _, fn := range wrapFns {
