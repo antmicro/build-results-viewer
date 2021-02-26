@@ -637,6 +637,13 @@ button {
   cursor: pointer;
 }
 
+.artifact-graph {
+  padding: 0;
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+}
+
 .artifact-section-title {
   color: #aaa;
   margin-top: 8px;

@@ -2,6 +2,7 @@ import React from 'react';
 
 import TargetTestResultCardComponent from './target_test_result_card';
 import TargetArtifactsCardComponent from './target_artifacts_card';
+import TargetImageCardComponent from './target_image_card';
 import router from '../router/router';
 import format from '../format/format';
 import { User } from '../auth/auth_service';
@@ -130,6 +131,7 @@ export default class TargetComponent extends React.Component {
           {this.props.testResultEvents?.sort((a, b) => b.buildEvent.testResult.status - a.buildEvent.testResult.status).map((result) => 
             <TargetTestResultCardComponent testResult={result} />
           )}
+          <TargetImageCardComponent files={this.props?.completedEvent?.buildEvent?.completed.importantOutput as build_event_stream.File[]}/>
           <TargetArtifactsCardComponent files={this.props?.completedEvent?.buildEvent?.completed.importantOutput as build_event_stream.File[]}/>
         </div>
       </div>
