@@ -114,6 +114,7 @@ func StartAndRunServices(env environment.Env) {
 	bbspb.RegisterBuildBuddyServiceServer(grpcServer, buildBuddyServer)
 
 	// Register all of our HTTP handlers on the default mux.
+	http.Handle("/", http.RedirectHandler(static.NotFoundPath, 301)) // default handler
 	http.Handle("/results/", httpfilters.WrapExternalHandler(http.StripPrefix("/results", staticFileServer)))
 	http.Handle("/results/app/", httpfilters.WrapExternalHandler(http.StripPrefix("/results/app", afs)))
 	http.Handle("/results/rpc/BuildBuddyService/", httpfilters.WrapAuthenticatedExternalHandler(env,
