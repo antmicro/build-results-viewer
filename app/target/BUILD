@@ -7,7 +7,6 @@ ts_library(
     srcs = glob(["**/*.tsx"]),
     deps = [
         "//app/auth",
-        "//app/docs",
         "//app/format",
         "//app/router",
         "//proto:build_event_stream_ts_proto",

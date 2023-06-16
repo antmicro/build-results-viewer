@@ -1,7 +1,6 @@
 import React from 'react';
 import pako from 'pako';
 import InvocationModel from './invocation_model';
-import CacheCodeComponent from '../docs/cache_code';
 
 interface Props {
   model: InvocationModel,
@@ -135,12 +134,6 @@ export default class ArtifactsCardComponent extends React.Component {
         <div className="title">Timing</div>
         <div className="sort-control">Order by <u onClick={this.handleStartTimeClicked.bind(this)} className={`clickable ${this.state.sortFunction == this.sortTimeAsc && 'selected'}`}>start time</u> | <u onClick={this.handleDurationClicked.bind(this)} className={`clickable ${this.state.sortFunction == this.sortDurationDesc && 'selected'}`}>duration</u></div>
         {this.state.buildInProgress && <div className="empty-state">Build is in progress...</div>}
-        {!this.state.timingEnabled &&
-          <div className="empty-state">
-            Profiling isn't enabled for this invocation.<br /><br />To enable profiling you must add GRPC remote caching. You can do so by adding the following line to your <b>.bazelrc</b> and re-run your invocation:
-            <CacheCodeComponent />
-          </div>
-        }
         <div className="details">
           {Array.from(this.state.threadMap.values()).sort(this.sortIdAsc).map((thread: Thread) =>
             <div>

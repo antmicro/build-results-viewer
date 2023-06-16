@@ -1,6 +1,5 @@
 import React from 'react';
 import format from '../format/format'
-import CacheCodeComponent from '../docs/cache_code'
 
 import { invocation } from '../../proto/invocation_ts_proto';
 import { build_event_stream } from '../../proto/build_event_stream_ts_proto';
@@ -122,12 +121,6 @@ export default class TargetTestResultCardComponent extends React.Component {
       <div className="content">
         <div className="title">Test log</div>
         <div className="test-subtitle">{this.getStatusTitle(this.props.testResult.buildEvent.testResult.status)} in {format.durationMillis(this.props.testResult.buildEvent.testResult.testAttemptDurationMillis)} on Shard {this.props.testResult.buildEvent.id.testResult.shard} (Run {this.props.testResult.buildEvent.id.testResult.run}, Attempt {this.props.testResult.buildEvent.id.testResult.attempt})</div>
-        {!this.state.cacheEnabled && 
-          <div className="empty-state">
-            Test log uploading isn't enabled for this invocation.<br /><br />
-            To enable test log uploading you must add GRPC remote caching. You can do so by adding the following line to your <b>.bazelrc</b> and re-run your invocation:
-            <CacheCodeComponent />
-          </div>}
         <div className="test-log">{this.state.testLog}</div>
       </div>
     </div>
