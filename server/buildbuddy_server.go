@@ -173,33 +173,6 @@ func getIntFlag(flagName string, defaultVal string) string {
 func (s *BuildBuddyServer) GetBazelConfig(ctx context.Context, req *bzpb.GetBazelConfigRequest) (*bzpb.GetBazelConfigResponse, error) {
 	configOptions := make([]*bzpb.ConfigOption, 0)
 
-	// Use config urls if they're set and fall back to host & protocol from request if not.
-	resultsURL := s.env.GetConfigurator().GetAppBuildBuddyURL()
-	if resultsURL == "" {
-		resultsURL = assembleURL(req.Host, req.Protocol, "")
-	}
-	configOptions = append(configOptions, makeConfigOption("build", "bes_results_url", resultsURL+"/invocation/"))
-
-	eventsAPIURL := s.env.GetConfigurator().GetAppEventsAPIURL()
-	if eventsAPIURL == "" {
-		grpcPort := getIntFlag("grpc_port", "1985")
-		eventsAPIURL = assembleURL(req.Host, "grpc:", grpcPort)
-	}
-	username, pw := s.getGroupLoginPW(ctx)
-	eventsAPIURL = insertPassword(eventsAPIURL, username, pw)
-	configOptions = append(configOptions, makeConfigOption("build", "bes_backend", eventsAPIURL))
-
-	if s.env.GetCache() != nil {
-		cacheAPIURL := s.env.GetConfigurator().GetAppCacheAPIURL()
-		if cacheAPIURL == "" {
-			grpcPort := getIntFlag("grpc_port", "1985")
-			cacheAPIURL = assembleURL(req.Host, "grpc:", grpcPort)
-		}
-		username, pw := s.getGroupLoginPW(ctx)
-		cacheAPIURL = insertPassword(cacheAPIURL, username, pw)
-		configOptions = append(configOptions, makeConfigOption("build", "remote_cache", cacheAPIURL))
-	}
-
 	return &bzpb.GetBazelConfigResponse{
 		ConfigOption: configOptions,
 	}, nil
