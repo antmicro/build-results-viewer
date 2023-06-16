@@ -3,6 +3,7 @@ syntax = "proto3";
 import "proto/bazel_config.proto";
 import "proto/invocation.proto";
 import "proto/user.proto";
+import "proto/app_config.proto";
 
 package buildbuddy.service;
 
@@ -24,4 +25,7 @@ service BuildBuddyService {
 
   rpc GetInvocationStat(invocation.GetInvocationStatRequest)
       returns (invocation.GetInvocationStatResponse);
+
+  rpc GetAppConfig(app_config.GetAppConfigRequest)
+      returns (app_config.GetAppConfigResponse);
 }

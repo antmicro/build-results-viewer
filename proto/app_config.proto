@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package app_config;
+
+message GetAppConfigRequest {
+}
+
+message GetAppConfigResponse {
+  string theme = 1; 
+}

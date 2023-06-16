@@ -126,6 +126,7 @@ proto_library(
         ":bazel_config_proto",
         ":invocation_proto",
         ":user_proto",
+        ":app_config_proto",
     ],
 )
 
@@ -153,6 +154,11 @@ proto_library(
     deps = [
         ":context_proto",
     ],
+)
+
+proto_library(
+    name = "app_config_proto",
+    srcs = ["app_config.proto"],
 )
 
 # Go proto rules below here
@@ -217,6 +223,7 @@ go_grpc_library(
         ":bazel_config_go_proto",
         ":invocation_go_proto",
         ":user_go_proto",
+        ":app_config_go_proto",
     ],
 )
 
@@ -271,6 +278,12 @@ go_grpc_library(
     ],
 )
 
+go_proto_library(
+    name = "app_config_go_proto",
+    importpath = "proto/app_config",
+    proto = ":app_config_proto",
+)
+
 # TypeScript proto rules below here
 
 ts_proto_library(
@@ -311,4 +324,9 @@ ts_proto_library(
 ts_proto_library(
     name = "buildbuddy_service_ts_proto",
     deps = [":buildbuddy_service_proto"],
+)
+
+ts_proto_library(
+    name = "app_config_ts_proto",
+    deps = [":app_config_proto"],
 )

@@ -14,6 +14,7 @@ import (
 	"github.com/buildbuddy-io/buildbuddy/server/util/status"
 	"google.golang.org/grpc"
 
+	appb "proto/app_config"
 	bzpb "proto/bazel_config"
 	grpb "proto/group"
 	inpb "proto/invocation"
@@ -222,6 +223,12 @@ func parseByteStreamURL(bsURL, filename string) (*bsLookup, error) {
 		}
 	}
 	return nil, fmt.Errorf("unparsable bytestream URL: '%s'", bsURL)
+}
+
+func (s *BuildBuddyServer) GetAppConfig(ctx context.Context, req *appb.GetAppConfigRequest) (*appb.GetAppConfigResponse, error) {
+	return &appb.GetAppConfigResponse{
+		Theme: s.env.GetConfigurator().GetAppTheme(),
+	}, nil
 }
 
 // Handle requests for build logs and artifacts by looking them up in from our

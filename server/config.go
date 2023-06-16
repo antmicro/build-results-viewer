@@ -29,6 +29,7 @@ type appConfig struct {
 	NoDefaultUserGroup   bool   `yaml:"no_default_user_group"`
 	CreateGroupPerUser   bool   `yaml:"create_group_per_user"`
 	AddUserToDomainGroup bool   `yaml:"add_user_to_domain_group"`
+	Theme                string `yaml:"theme"`
 }
 
 type buildEventProxy struct {
@@ -65,18 +66,18 @@ type SlackConfig struct {
 }
 
 type GCSCacheConfig struct {
-       Bucket          string `yaml:"bucket"`
-       CredentialsFile string `yaml:"credentials_file"`
-       ProjectID       string `yaml:"project_id"`
-       TTLDays         int64  `yaml:"ttl_days"`
+	Bucket          string `yaml:"bucket"`
+	CredentialsFile string `yaml:"credentials_file"`
+	ProjectID       string `yaml:"project_id"`
+	TTLDays         int64  `yaml:"ttl_days"`
 }
 
 type cacheConfig struct {
-       Disk         *DiskConfig     `yaml:"disk"`
-       GCS          *GCSCacheConfig `yaml:"gcs"`
-       InMemory     bool            `yaml:"in_memory"`
-       TTLSeconds   int             `yaml:"ttl_seconds"`
-       MaxSizeBytes int64           `yaml:"max_size_bytes"`
+	Disk         *DiskConfig     `yaml:"disk"`
+	GCS          *GCSCacheConfig `yaml:"gcs"`
+	InMemory     bool            `yaml:"in_memory"`
+	TTLSeconds   int             `yaml:"ttl_seconds"`
+	MaxSizeBytes int64           `yaml:"max_size_bytes"`
 }
 
 type authConfig struct {
@@ -217,6 +218,11 @@ func (c *Configurator) GetAppCreateGroupPerUser() bool {
 func (c *Configurator) GetAppAddUserToDomainGroup() bool {
 	c.rereadIfStale()
 	return c.gc.App.AddUserToDomainGroup
+}
+
+func (c *Configurator) GetAppTheme() string {
+	c.rereadIfStale()
+	return c.gc.App.Theme
 }
 
 func (c *Configurator) GetIntegrationsSlackConfig() *SlackConfig {
