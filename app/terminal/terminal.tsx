@@ -15,10 +15,13 @@ export default class TerminalComponent extends React.Component<TerminalProps> {
   render() {
     return <div className="terminal">
       <LazyLog
-        selectableLines={true}
+        selectableLines={false}
         caseInsensitive={true}
         lineClassName="terminal-line"
+        rowHeight={20}
+        height={'auto'}
         follow={true}
+        style={{ backgroundColor: 'unset' }}
         text={this.props.value} />
     </div>
   }
