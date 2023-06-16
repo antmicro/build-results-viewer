@@ -5,6 +5,8 @@ import capabilities from '../capabilities/capabilities'
 import router, { Path } from '../router/router';
 import authService, { AuthService } from '../auth/auth_service';
 import { User } from '../auth/auth_service';
+import { app_config } from '../../proto/app_config_ts_proto';
+import rpcService from '../service/rpc_service';
 
 const denseModeKey = "VIEW_MODE";
 const denseModeValue = "DENSE";
@@ -15,6 +17,7 @@ interface State {
   path: string;
   search: URLSearchParams;
   denseMode: boolean;
+  appConfig: app_config.GetAppConfigResponse;
 }
 
 export default class RootComponent extends React.Component {
@@ -23,7 +26,8 @@ export default class RootComponent extends React.Component {
     hash: window.location.hash,
     path: window.location.pathname,
     search: new URLSearchParams(window.location.search),
-    denseMode: window.localStorage.getItem(denseModeKey) == denseModeValue || false
+    denseMode: window.localStorage.getItem(denseModeKey) == denseModeValue || false,
+    appConfig: null
   };
 
   componentWillMount() {
@@ -33,6 +37,11 @@ export default class RootComponent extends React.Component {
     authService.userStream.addListener(AuthService.userEventName, (user: User) => {
       this.setState({ ...this.state, user })
     })
+    let request = new app_config.GetAppConfigRequest();
+    rpcService.service.getAppConfig(request).then((response: app_config.GetAppConfigResponse) => {
+      console.log(response);
+      this.setState({...this.state, appConfig: response})
+    });
   }
 
   handlePathChange() {
