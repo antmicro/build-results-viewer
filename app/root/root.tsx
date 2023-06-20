@@ -62,7 +62,7 @@ export default class RootComponent extends React.Component {
     let invocationId = router.getInvocationId(this.state.path);
     return (
       <div className="dense root">
-        <MenuComponent user={this.state.user} showHamburger={true} denseModeEnabled={this.state.denseMode} handleDenseModeToggled={this.handleToggleDenseClicked.bind(this)} />
+        <MenuComponent theme={this.state.appConfig?.theme} user={this.state.user} showHamburger={true} denseModeEnabled={this.state.denseMode} handleDenseModeToggled={this.handleToggleDenseClicked.bind(this)} />
         {invocationId && <InvocationComponent invocationId={invocationId} hash={this.state.hash} search={this.state.search} denseMode={true} />}
       </div>
     );
