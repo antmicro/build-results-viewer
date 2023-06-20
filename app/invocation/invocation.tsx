@@ -26,6 +26,7 @@ import DenseInvocationOverviewComponent from './dense/dense_invocation_overview'
 import DenseInvocationTabsComponent from './dense/dense_invocation_tabs'
 
 import { invocation } from '../../proto/invocation_ts_proto';
+import { app_config } from '../../proto/app_config_ts_proto';
 
 interface State {
   loading: boolean,
@@ -41,6 +42,7 @@ interface Props {
   hash: string,
   search: URLSearchParams,
   denseMode: boolean,
+  appConfig: app_config.GetAppConfigResponse;
 }
 
 const largePageSize = 100;
@@ -155,7 +157,7 @@ export default class InvocationComponent extends React.Component {
               pageSize={showAll ? smallPageSize : largePageSize} />}
 
           {(showAll || this.props.hash == "#log") &&
-            <BuildLogsCardComponent model={this.state.model} expanded={this.props.hash == "#log"} />}
+            <BuildLogsCardComponent model={this.state.model} expanded={this.props.hash == "#log"} appConfig={this.props.appConfig} />}
 
           {(!this.props.hash || this.props.hash == "#targets") &&
             <TargetsComponent

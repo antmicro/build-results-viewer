@@ -16,6 +16,7 @@ ts_library(
         "//proto:command_line_ts_proto",
         "//proto:invocation_ts_proto",
         "//proto:user_ts_proto",
+        "//proto:app_config_ts_proto",
         "@npm//@types/long",
         "@npm//@types/moment",
         "@npm//@types/pako",

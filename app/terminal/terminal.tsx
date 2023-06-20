@@ -1,9 +1,11 @@
 import React from 'react';
 import { LazyLog } from 'react-lazylog';
+import { app_config } from '../../proto/app_config_ts_proto';
 
 export interface TerminalProps extends React.DOMAttributes<{}> {
   options?: any;
   value?: string;
+  appConfig?: app_config.GetAppConfigResponse;
 }
 
 export default class TerminalComponent extends React.Component<TerminalProps> {
@@ -13,7 +15,7 @@ export default class TerminalComponent extends React.Component<TerminalProps> {
   }
 
   render() {
-    return <div className="terminal">
+    return <div className="terminal" data-theme={this.props.appConfig?.theme}>
       <LazyLog
         selectableLines={false}
         caseInsensitive={true}

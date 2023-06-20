@@ -49,7 +49,7 @@ export default class MenuComponent extends React.Component {
     return (
       <div>
         {this.state.menuExpanded && <div className="side-menu-shade" onClick={this.handleShadeClicked.bind(this)}></div>}
-        <div hidden className="menu">
+        <div hidden className="menu" data-theme={this.props.theme}>
           <div className="container">
             <div>
               <a href="/results/"><div className="title"><img src={this.logoUrl} /></div></a>

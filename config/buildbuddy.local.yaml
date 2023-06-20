@@ -1,6 +1,7 @@
 app:
   build_buddy_url: "http://localhost:8080"
   theme: "antmicro"
+  #theme: "chips"
 database:
   data_source: "sqlite3:///tmp/buildbuddy.db"
 storage:

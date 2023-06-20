@@ -1,3 +1,14 @@
+/** Per-theme colors **/
+[data-theme="antmicro"] {
+  --primary-color: #332d37; 
+  --terminal-hover-color: #48424b;
+}
+
+[data-theme="chips"] {
+  --primary-color: #000;
+  --terminal-hover-color: #444444;
+}
+
 h1,
 h2,
 h3,
@@ -62,8 +73,7 @@ button {
   font-size: 24px;
   z-index: 2;
   position: relative;
-  background-color: #332d37;
-  color: #fff;
+  background-color: var(--primary-color);
 }
 
 .menu .container {
@@ -347,9 +357,7 @@ button {
 }
 
 .card.dark {
-  /* background-color: #263238; */
-  /* background-color: #222; */
-  background-color: #332d37;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
@@ -520,12 +528,12 @@ button {
 .terminal-line {
   font-size: 14px;
   font-family: 'Source Code Pro', monospace;
-  background-color: #332d37;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
 .terminal-line:hover {
-  background-color: #48424b !important;
+  background-color: var(--terminal-hover-color) !important;
 }
 
 .expanded .terminal {
