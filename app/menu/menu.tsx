@@ -30,7 +30,7 @@ export default class MenuComponent extends React.Component {
         <div hidden className="menu" data-theme={this.props.theme}>
           <div className="container">
             <div>
-              <a href="/results/"><div className="title"><img src={this.logoUrl} /></div></a>
+	      { this.props.theme && <a href="/results/"><div className="title"><img src={this.logoUrl} /></div></a> }
             </div>
           </div>
         </div>
