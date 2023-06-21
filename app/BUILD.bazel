@@ -19,6 +19,7 @@ rollup_bundle(
 terser_minified(
     name = "app_bundle.min",
     src = ":app_bundle",
+    sourcemap = False,
 )
 
 ts_library(
