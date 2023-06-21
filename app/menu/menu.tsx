@@ -4,34 +4,13 @@ import capabilities from '../capabilities/capabilities';
 
 interface Props {
   children?: any;
-  denseModeEnabled: boolean;
-  handleDenseModeToggled: VoidFunction;
   user: User;
   showHamburger: boolean;
   theme: string;
 }
-interface State {
-  menuExpanded: boolean;
-}
 
 export default class MenuComponent extends React.Component {
   props: Props;
-
-  state: State = {
-    menuExpanded: false
-  };
-
-  handleShadeClicked() {
-    this.setState({ menuExpanded: false });
-  }
-
-  handleMenuClicked() {
-    this.setState({ menuExpanded: !this.state.menuExpanded });
-  }
-
-  handleToggleDenseModeClicked() {
-    this.props.handleDenseModeToggled();
-  }
 
   handleLoginClicked() {
     authService.login();
@@ -48,7 +27,6 @@ export default class MenuComponent extends React.Component {
   render() {
     return (
       <div>
-        {this.state.menuExpanded && <div className="side-menu-shade" onClick={this.handleShadeClicked.bind(this)}></div>}
         <div hidden className="menu" data-theme={this.props.theme}>
           <div className="container">
             <div>

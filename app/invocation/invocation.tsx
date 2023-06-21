@@ -41,7 +41,6 @@ interface Props {
   invocationId: string,
   hash: string,
   search: URLSearchParams,
-  denseMode: boolean,
   appConfig: app_config.GetAppConfigResponse;
 }
 
@@ -127,26 +126,19 @@ export default class InvocationComponent extends React.Component {
         targetLabel={targetLabel} />;
     }
 
-    var showAll = !this.props.hash && !this.props.denseMode;
-
     return (
       <div>
         <div className="shelf">
-          {this.props.denseMode ?
-            <DenseInvocationOverviewComponent invocationId={this.props.invocationId} model={this.state.model} /> :
-            <InvocationOverviewComponent invocationId={this.props.invocationId} model={this.state.model} user={this.props.user} />}
+          <DenseInvocationOverviewComponent invocationId={this.props.invocationId} model={this.state.model} />
 
         </div>
         <div className="container">
-          {this.props.denseMode ?
-            <DenseInvocationTabsComponent hash={this.props.hash} model={this.state.model} /> :
-            <InvocationTabsComponent hash={this.props.hash} />}
+          <DenseInvocationTabsComponent hash={this.props.hash} model={this.state.model} /> 
 
-          {((!this.props.hash && this.props.denseMode) || this.props.hash == "#targets" || this.props.hash == "#artifacts") &&
+          {(!this.props.hash || this.props.hash == "#targets" || this.props.hash == "#artifacts") &&
             <InvocationFilterComponent hash={this.props.hash} search={this.props.search} />}
 
-          {(showAll || this.props.hash == "#log") &&
-            this.state.model.aborted?.aborted.description &&
+          {this.props.hash == "#log" && this.state.model.aborted?.aborted.description &&
             <ErrorCardComponent model={this.state.model} />}
 
           {(!this.props.hash || this.props.hash == "#targets") &&
@@ -154,9 +146,9 @@ export default class InvocationComponent extends React.Component {
               model={this.state.model}
               mode="failing"
               filter={this.props.search.get("targetFilter")}
-              pageSize={showAll ? smallPageSize : largePageSize} />}
+              pageSize={largePageSize} />}
 
-          {(showAll || this.props.hash == "#log") &&
+          {this.props.hash == "#log" &&
             <BuildLogsCardComponent model={this.state.model} expanded={this.props.hash == "#log"} appConfig={this.props.appConfig} />}
 
           {(!this.props.hash || this.props.hash == "#targets") &&
@@ -164,12 +156,12 @@ export default class InvocationComponent extends React.Component {
               model={this.state.model}
               mode="passing"
               filter={this.props.search.get("targetFilter")}
-              pageSize={showAll ? smallPageSize : largePageSize} />}
+              pageSize={largePageSize} />}
 
-          {(showAll || this.props.hash == "#details") &&
+          {this.props.hash == "#details" &&
             <InvocationDetailsCardComponent model={this.state.model} limitResults={!this.props.hash} />}
 
-          {(showAll || this.props.hash == "#artifacts") &&
+          {this.props.hash == "#artifacts" &&
             <ArtifactsCardComponent
               model={this.state.model}
               filter={this.props.search.get("artifactFilter")}

@@ -8,15 +8,11 @@ import { User } from '../auth/auth_service';
 import { app_config } from '../../proto/app_config_ts_proto';
 import rpcService from '../service/rpc_service';
 
-const denseModeKey = "VIEW_MODE";
-const denseModeValue = "DENSE";
-
 interface State {
   user: User;
   hash: string;
   path: string;
   search: URLSearchParams;
-  denseMode: boolean;
   appConfig: app_config.GetAppConfigResponse;
 }
 
@@ -26,7 +22,6 @@ export default class RootComponent extends React.Component {
     hash: window.location.hash,
     path: window.location.pathname,
     search: new URLSearchParams(window.location.search),
-    denseMode: window.localStorage.getItem(denseModeKey) == denseModeValue || false,
     appConfig: null
   };
 
@@ -52,18 +47,12 @@ export default class RootComponent extends React.Component {
     });
   }
 
-  handleToggleDenseClicked() {
-    let newDenseMode = !this.state.denseMode;
-    this.setState({ ...this.state, denseMode: newDenseMode });
-    window.localStorage.setItem(denseModeKey, newDenseMode ? denseModeValue : "");
-  }
-
   render() {
     let invocationId = router.getInvocationId(this.state.path);
     return (
       <div className="dense root">
-        <MenuComponent theme={this.state.appConfig?.theme} user={this.state.user} showHamburger={true} denseModeEnabled={this.state.denseMode} handleDenseModeToggled={this.handleToggleDenseClicked.bind(this)} />
-        {invocationId && <InvocationComponent invocationId={invocationId} hash={this.state.hash} search={this.state.search} denseMode={true} appConfig={this.state.appConfig} />}
+        <MenuComponent theme={this.state.appConfig?.theme} user={this.state.user} showHamburger={true}/>
+        {invocationId && <InvocationComponent invocationId={invocationId} hash={this.state.hash} search={this.state.search} appConfig={this.state.appConfig} />}
       </div>
     );
   }
