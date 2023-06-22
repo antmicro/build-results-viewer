@@ -216,6 +216,9 @@ func (c *Configurator) GetAppAddUserToDomainGroup() bool {
 
 func (c *Configurator) GetAppTheme() string {
 	c.rereadIfStale()
+	if value, exists := os.LookupEnv("BUILD_RESULTS_VIEWER_THEME"); exists {
+		return value
+	}
 	return c.gc.App.Theme
 }
 
