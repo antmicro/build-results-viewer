@@ -8,7 +8,6 @@ import (
 	"github.com/buildbuddy-io/buildbuddy/server/backends/disk_cache"
 	"github.com/buildbuddy-io/buildbuddy/server/backends/invocationdb"
 	"github.com/buildbuddy-io/buildbuddy/server/backends/memory_cache"
-	"github.com/buildbuddy-io/buildbuddy/server/backends/slack"
 	"github.com/buildbuddy-io/buildbuddy/server/build_event_protocol/build_event_proxy"
 	"github.com/buildbuddy-io/buildbuddy/server/config"
 	"github.com/buildbuddy-io/buildbuddy/server/interfaces"
@@ -134,7 +133,7 @@ func GetConfiguredEnvironmentOrDie(configurator *config.Configurator, checker *h
 
 	dbHandle, dbErr := db.GetConfiguredDatabase(configurator)
 	for dbErr != nil {
-		time.Sleep(5*time.Second)
+		time.Sleep(5 * time.Second)
 		log.Printf("%s, will try again in 5 seconds.", dbErr)
 		dbHandle, dbErr = db.GetConfiguredDatabase(configurator)
 	}
@@ -152,15 +151,6 @@ func GetConfiguredEnvironmentOrDie(configurator *config.Configurator, checker *h
 		a:        &nullauth.NullAuthenticator{},
 	}
 	realEnv.SetInvocationDB(invocationdb.NewInvocationDB(realEnv, dbHandle))
-
-	webhooks := make([]interfaces.Webhook, 0)
-	appURL := configurator.GetAppBuildBuddyURL()
-	if sc := configurator.GetIntegrationsSlackConfig(); sc != nil {
-		if sc.WebhookURL != "" {
-			webhooks = append(webhooks, slack.NewSlackWebhook(sc.WebhookURL, appURL))
-		}
-	}
-	realEnv.SetWebhooks(webhooks)
 
 	buildEventProxyClients := make([]*build_event_proxy.BuildEventProxyClient, 0)
 	for _, target := range configurator.GetBuildEventProxyHosts() {

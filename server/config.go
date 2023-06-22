@@ -23,7 +23,6 @@ type generalConfig struct {
 }
 
 type appConfig struct {
-	BuildBuddyURL        string `yaml:"build_buddy_url"`
 	EventsAPIURL         string `yaml:"events_api_url"`
 	CacheAPIURL          string `yaml:"cache_api_url"`
 	NoDefaultUserGroup   bool   `yaml:"no_default_user_group"`
@@ -188,11 +187,6 @@ func (c *Configurator) GetStorageGCSConfig() *GCSConfig {
 func (c *Configurator) GetDBDataSource() string {
 	c.rereadIfStale()
 	return c.gc.Database.DataSource
-}
-
-func (c *Configurator) GetAppBuildBuddyURL() string {
-	c.rereadIfStale()
-	return c.gc.App.BuildBuddyURL
 }
 
 func (c *Configurator) GetAppEventsAPIURL() string {

@@ -68,12 +68,3 @@ go_library(
         "//server/util:status",
     ],
 )
-
-go_library(
-    name = "slack",
-    srcs = ["slack.go"],
-    importpath = "github.com/buildbuddy-io/buildbuddy/server/backends/slack",
-    deps = [
-        "//proto:invocation_go_proto",
-    ],
-)
