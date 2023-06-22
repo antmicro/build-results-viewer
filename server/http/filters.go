@@ -106,7 +106,6 @@ func WrapExternalHandler(next http.Handler) http.Handler {
 	// called last before the handler itself is called.
 	wrapFns := []wrapFn{
 		Gzip,
-		RedirectHTTPS,
 		RedirectLegacyInvocation,
 	}
 	handler := next
@@ -122,7 +121,6 @@ func WrapAuthenticatedExternalHandler(env environment.Env, next http.Handler) ht
 	wrapFns := []wrapFn{
 		Gzip,
 		func(h http.Handler) http.Handler { return Authenticate(env, h) },
-		RedirectHTTPS,
 	}
 	handler := next
 	for _, fn := range wrapFns {
