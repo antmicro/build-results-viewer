@@ -133,6 +133,9 @@ type Configurator struct {
 }
 
 func NewConfigurator(configFilePath string) (*Configurator, error) {
+	if value, exists := os.LookupEnv("BUILD_RESULTS_VIEWER_CONFIG"); exists {
+		configFilePath = value
+	}
 	log.Printf("Reading buildbuddy config from '%s'", configFilePath)
 	conf, err := readConfig(configFilePath)
 	if err != nil {
