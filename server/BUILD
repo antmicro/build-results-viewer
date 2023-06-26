@@ -1,5 +1,6 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -172,4 +173,11 @@ go_binary(
 go_image(
     name = "buildbuddy_image",
     binary = ":buildbuddy",
+)
+
+copy_file(
+    name = "build_results_viewer_container",
+    src = ":buildbuddy_image.tar",
+    out = "build_results_viewer.tar",
+    is_executable = False,
 )
